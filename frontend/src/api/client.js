@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+export const API_BASE_URL =
+  import.meta.env.VITE_API_URL || 'https://datalens-ai-backend-fu9i.onrender.com'
 
 const client = axios.create({
   baseURL: API_BASE_URL,
@@ -20,15 +21,20 @@ client.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('datalens_token')
       localStorage.removeItem('datalens_user')
+
       if (!window.location.pathname.startsWith('/login')) {
         window.location.href = '/login'
       }
     }
+
     return Promise.reject(error)
   }
 )
 
-export function getErrorMessage(error, fallback = 'Something went wrong. Please try again.') {
+export function getErrorMessage(
+  error,
+  fallback = 'Something went wrong. Please try again.'
+) {
   return error?.response?.data?.detail || fallback
 }
 
