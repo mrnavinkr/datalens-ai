@@ -1,0 +1,31 @@
+# Node
+
+node_modules/
+dist/
+.vite/
+
+# Python
+
+**pycache**/
+*.pyc
+.venv/
+venv/
+
+# Environment
+
+.env
+
+# Uploads
+
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Generated Reports
+
+backend/reports/*
+!backend/reports/.gitkeep
+
+# OS
+
+.DS_Store
+Thumbs.db

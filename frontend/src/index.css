@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Dark (default): deep navy "diagnostic scan" palette */
+  html.dark {
+    color-scheme: dark;
+    --color-ink-950: 8 13 23;
+    --color-ink-900: 11 18 32;
+    --color-ink-800: 18 27 46;
+    --color-ink-700: 26 39 64;
+    --color-ink-600: 36 51 82;
+    --color-mist-100: 230 237 245;
+    --color-mist-300: 183 195 214;
+    --color-mist-500: 138 151 172;
+    --color-mist-700: 76 88 114;
+  }
+  /* Light: same structure, inverted for a clean clinical-white feel */
+  html.light {
+    color-scheme: light;
+    --color-ink-950: 255 255 255;
+    --color-ink-900: 246 248 251;
+    --color-ink-800: 255 255 255;
+    --color-ink-700: 226 232 240;
+    --color-ink-600: 203 213 225;
+    --color-mist-100: 15 23 42;
+    --color-mist-300: 51 65 85;
+    --color-mist-500: 100 116 139;
+    --color-mist-700: 148 163 184;
+  }
+  body {
+    @apply bg-ink-900 text-mist-100 font-body antialiased transition-colors duration-200;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  ::selection {
+    @apply bg-scan-500/30 text-scan-400;
+  }
+  /* Visible keyboard focus everywhere, per accessibility floor */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid theme('colors.scan.400');
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-ink-800/70 border border-ink-600 backdrop-blur-sm;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-ink-600 rounded-full;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
