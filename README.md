@@ -1,159 +1,565 @@
-# DataLens AI
+# 📊 DataLens AI
 
-**AI-Powered Data Intelligence & Data Health Platform**
-Understand Your Data. Find Its Problems. Discover Its Insights.
+### AI-Powered Dataset Analysis & Visualization Platform
 
-Full-stack implementation of the complete spec: auth, dataset upload,
-automatic profiling, data health/quality/usability scoring, column
-analysis, missing/duplicate/outlier/distribution analysis, correlation,
-automatic visualizations + a Visualization Studio, a paginated Data
-Explorer, a multi-mode AI Data Analyst (Gemini), PDF/Excel/CSV report
-export, an Admin Panel, dark/light mode, and a public Demo mode.
+**DataLens AI** is a full-stack data analytics platform that allows users to upload datasets, analyze data, generate insights, and explore results through an interactive web interface.
+
+The application combines a **React frontend**, **FastAPI backend**, **MySQL-compatible TiDB Cloud database**, and **Google Gemini AI** to provide an end-to-end data analysis experience.
 
 ---
 
-## What's implemented
+## 🌐 Live Demo
 
-### Backend (FastAPI + MySQL)
-- **Auth** — JWT register/login/`/me`, profile update, first registered user becomes admin
-- **Datasets** — upload (CSV/XLSX/XLS/JSON) with validation & size limits, list/rename/delete, paginated+searchable+sortable row access (Data Explorer)
-- **Profiling engine** (`services/profiling_service.py`) — real Pandas/NumPy/SciPy statistics, nothing invented:
-  - Automatic column type detection (integer, float, boolean, date, datetime, categorical, text)
-  - Dataset-level profile: rows, columns, cells, memory usage, missing/duplicate rates
-  - Column-level stats: min/max/mean/median/std/variance/quartiles/IQR/outliers/skew (numeric); top categories/high-cardinality flag (categorical); date ranges/invalid dates (dates)
-  - Data Health scoring: completeness, validity, consistency, uniqueness → overall quality score
-  - Data Usability scoring with strengths/problems and prioritized recommended actions
-  - Correlation matrix with strong positive/negative pairs
-- **Visualization** (`services/visualization_service.py`) — automatic dataset/column charts, plus a configurable chart builder (bar/line/area/pie/donut/histogram/scatter/box/table) for the Visualization Studio
-- **Data Explorer** (`services/data_explorer_service.py`) — backend-paginated raw row access with search/sort, capped page size so the browser never holds the whole dataset
-- **AI Data Analyst** (`services/ai_service.py`) — Google Gemini integration with 6 chat modes (Explorer, Health, Visualization, Insight, Recommendation, Report). The AI is only ever given the already-computed structured analysis JSON — it explains numbers, it never calculates or invents them
-- **Reports** (`services/report_service.py`) — real PDF (ReportLab), Excel (openpyxl, multi-sheet), and CSV report generation from persisted analysis data — tested, produces valid downloadable files
-- **Admin Panel** — platform stats, user list/activate-deactivate/role management, dataset oversight, activity log
-- **Demo Mode** (`services/demo_service.py`) — generates a deterministic realistic sample sales dataset (with real injected messiness: missing values, inconsistent casing, outliers, duplicates) and serves a full analysis with no login required
+🚀 **Live Application:**
+https://datalens-ai12.netlify.app/
 
-### Frontend (React + Vite + Tailwind)
-- Landing page, Login, Register, public Demo page
-- Dashboard shell with responsive sidebar (mobile-friendly)
-- Dataset dashboard: stat cards + recent-datasets table (rename/delete)
-- Upload page: drag-and-drop, validation, progress, live "analyzing" state
-- Dataset workspace (tabbed): Overview, Data Health, Columns, Data Explorer, Statistics
-  (distribution charts), Correlation (heatmap), Visualization Studio (chart builder),
-  AI Analyst (multi-mode chat), Reports (PDF/Excel/CSV download)
-- Profile page (name/password, theme toggle)
-- Admin Dashboard (stats, users, datasets)
-- **Dark/light mode** — theme-aware CSS variables so every existing component works in both themes without per-component overrides
-- Design direction: deep-ink "diagnostic scan" palette with a teal accent — the signature `ScoreGauge` component reads quality/usability scores like a vital-sign monitor
+> The live demo is deployed on Netlify. Backend services run separately on Render.
 
 ---
 
-## Getting started
+## 🖼️ Project Overview
 
-### 1. Backend
+DataLens AI is designed to simplify the process of working with datasets.
+
+Users can:
+
+* 👤 Create an account and log in securely
+* 📂 Upload datasets
+* 📊 Analyze dataset information
+* 🔍 Explore data insights
+* 🤖 Use AI-powered analysis
+* 📈 Work with analytical results and visualizations
+* 🔐 Access protected application features through authentication
+
+---
+
+# ✨ Key Features
+
+### 🔐 Authentication
+
+* User registration
+* Secure login
+* JWT-based authentication
+* Protected API endpoints
+* Token-based session management
+* Password hashing
+
+### 📁 Dataset Management
+
+* Upload datasets through the web interface
+* File validation
+* Configurable upload size
+* Backend processing
+* Dataset storage and analysis
+
+### 📊 Data Analysis
+
+* Dataset exploration
+* Data statistics
+* Column-level information
+* Missing-value analysis
+* Data processing and analytical workflows
+
+### 🤖 AI-Powered Insights
+
+Google Gemini AI is integrated to assist with dataset analysis and generate useful insights from data.
+
+### 🎨 Modern Frontend
+
+* Responsive UI
+* React-based architecture
+* Vite development environment
+* Tailwind CSS styling
+* Axios API integration
+
+### ⚡ Fast Backend
+
+* FastAPI REST API
+* SQLAlchemy ORM
+* Pydantic validation
+* Uvicorn ASGI server
+* MySQL/TiDB Cloud database connectivity
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+| Technology      | Purpose             |
+| --------------- | ------------------- |
+| ⚛️ React 18     | User interface      |
+| ⚡ Vite          | Frontend build tool |
+| 🎨 Tailwind CSS | Styling             |
+| 🔗 Axios        | API communication   |
+| 🟨 JavaScript   | Application logic   |
+
+## Backend
+
+| Technology          | Purpose             |
+| ------------------- | ------------------- |
+| 🐍 Python           | Backend programming |
+| 🚀 FastAPI          | REST API framework  |
+| 🦄 Uvicorn          | ASGI server         |
+| 🗄️ SQLAlchemy      | Database ORM        |
+| ✅ Pydantic          | Data validation     |
+| 🔑 JWT              | Authentication      |
+| 🔐 Passlib / Bcrypt | Password hashing    |
+
+## Database
+
+| Technology    | Purpose                |
+| ------------- | ---------------------- |
+| 🐬 MySQL      | Database technology    |
+| ☁️ TiDB Cloud | Cloud database         |
+| 🔌 PyMySQL    | Python database driver |
+
+## AI
+
+| Technology       | Purpose                     |
+| ---------------- | --------------------------- |
+| 🤖 Google Gemini | AI-powered dataset insights |
+
+## Deployment
+
+| Platform      | Purpose                       |
+| ------------- | ----------------------------- |
+| ▲ Netlify     | Frontend deployment           |
+| 🚀 Render     | Backend deployment            |
+| ☁️ TiDB Cloud | Cloud database                |
+| 🐙 GitHub     | Source code & version control |
+
+---
+
+# 🏗️ Project Architecture
+
+```text
+                    ┌──────────────────────┐
+                    │      User Browser    │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │   React + Vite       │
+                    │   Tailwind CSS        │
+                    │   Netlify             │
+                    └──────────┬───────────┘
+                               │
+                         REST API / Axios
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │     FastAPI Backend   │
+                    │       Render         │
+                    └───────┬───────┬──────┘
+                            │       │
+                ┌───────────┘       └────────────┐
+                ▼                                ▼
+      ┌──────────────────┐              ┌──────────────────┐
+      │   TiDB Cloud     │              │   Gemini AI      │
+      │   MySQL Database │              │   AI Analysis    │
+      └──────────────────┘              └──────────────────┘
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+datalens-ai/
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   ├── vite.config.js
+│   └── ...
+│
+├── backend/
+│   ├── main.py
+│   ├── routers/
+│   ├── models/
+│   ├── schemas/
+│   ├── services/
+│   ├── uploads/
+│   ├── requirements.txt
+│   └── ...
+│
+├── .env.example
+├── README.md
+└── ...
+```
+
+---
+
+# 🚀 Getting Started
+
+Follow the steps below to run DataLens AI locally.
+
+## 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/mrnavinkr/datalens-ai.git
+```
+
+Move into the project directory:
+
+```bash
+cd datalens-ai
+```
+
+---
+
+# 🐍 Backend Setup
+
+Open a terminal and move into the backend:
 
 ```bash
 cd backend
-python -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-cp .env.example .env
-# Edit .env: DATABASE_URL (real MySQL 8+), SECRET_KEY (random string),
-# and GEMINI_API_KEY if you want the AI Data Analyst to work
-uvicorn main:app --reload --port 8000
 ```
 
-Tables are created automatically on startup. Point `DATABASE_URL` at an
-existing MySQL database, e.g.:
+## Create Virtual Environment
 
+```bash
+python -m venv venv
 ```
-DATABASE_URL=mysql+pymysql://root:password@localhost:3306/datalens_ai
+
+### Windows
+
+```bash
+venv\Scripts\activate
 ```
 
-Without `GEMINI_API_KEY` set, every other feature works normally — only
-the AI Data Analyst chat will return a clear "not configured yet" message
-instead of a model reply.
+---
 
-### 2. Frontend
+## Install Dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+---
+
+# 🔐 Environment Variables
+
+Create a `.env` file inside the `backend` folder.
+
+Example:
+
+```env
+DATABASE_URL=your_database_url
+
+SECRET_KEY=your_secret_key
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=1440
+
+GEMINI_API_KEY=your_gemini_api_key
+GEMINI_MODEL=your_gemini_model
+
+UPLOAD_DIR=uploads
+MAX_FILE_SIZE_MB=100
+
+FRONTEND_URL=http://localhost:5173
+
+APP_NAME=DataLens AI
+DEBUG=false
+```
+
+> ⚠️ Never commit your real `.env` file, database password, or API keys to GitHub.
+
+---
+
+# ▶️ Start Backend
+
+From the `backend` directory:
+
+```bash
+python -m uvicorn main:app --reload
+```
+
+Backend will run at:
+
+```text
+http://127.0.0.1:8000
+```
+
+FastAPI documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# ⚛️ Frontend Setup
+
+Open another terminal.
+
+Move into the frontend:
 
 ```bash
 cd frontend
+```
+
+Install dependencies:
+
+```bash
 npm install
-cp .env.example .env
+```
+
+---
+
+## 🔗 API Configuration
+
+Create/update the frontend environment file:
+
+```env
+VITE_API_URL=http://127.0.0.1:8000
+```
+
+The frontend communicates with the FastAPI backend through Axios.
+
+---
+
+# ▶️ Start Frontend
+
+```bash
 npm run dev
 ```
 
-Visit `http://localhost:5173`. The first account you register becomes an admin.
-Visit `/demo` without logging in to see a full analysis of a sample dataset.
+The application will be available at:
 
----
-
-## Project structure
-
-```
-datalens-ai/
-├── backend/
-│   ├── main.py                      FastAPI app entrypoint, mounts all routers
-│   ├── config.py                    Settings from environment variables
-│   ├── database.py                  SQLAlchemy engine/session
-│   ├── models.py                    ORM models (users, datasets, columns, analysis,
-│   │                                 visualizations, chat, reports, admin activity)
-│   ├── schemas.py                   Pydantic request/response models
-│   ├── auth.py                      JWT + password hashing + current-user/admin deps
-│   ├── routers/
-│   │   ├── auth.py                  /api/auth/*        (register, login, me, profile)
-│   │   ├── datasets.py              /api/datasets/*     (upload, list, rename, delete, rows)
-│   │   ├── analysis.py              /api/analysis/*     (overview, health, columns, correlations, outliers)
-│   │   ├── visualization.py         /api/visualization/*  (auto charts, chart builder)
-│   │   ├── chat.py                  /api/chat           (AI Data Analyst, 6 modes)
-│   │   ├── reports.py               /api/reports/*      (generate + download PDF/XLSX/CSV)
-│   │   ├── admin.py                 /api/admin/*        (stats, users, dataset oversight)
-│   │   └── demo.py                  /api/demo/analysis  (public, unauthenticated)
-│   ├── services/
-│   │   ├── file_loader.py           Safe CSV/XLSX/XLS/JSON loading, chunked CSV reads
-│   │   ├── profiling_service.py     The core statistics/health/quality engine
-│   │   ├── analysis_pipeline.py     Orchestrates profiling -> DB persistence
-│   │   ├── visualization_service.py Chart-ready data for auto charts + Studio
-│   │   ├── data_explorer_service.py Paginated/searchable/sortable row access
-│   │   ├── ai_service.py            Gemini prompt building + calling
-│   │   ├── report_service.py        PDF/Excel/CSV report rendering
-│   │   └── demo_service.py          Deterministic sample dataset generator
-│   └── uploads/                     Per-user uploaded files (gitignored)
-│
-└── frontend/
-    └── src/
-        ├── api/                     Axios client + all endpoint functions
-        ├── context/                 AuthContext, ThemeContext (dark/light)
-        ├── layouts/
-        │   ├── DashboardLayout.jsx  Sidebar shell (Dashboard/Upload/Profile/Admin)
-        │   └── DatasetLayout.jsx    Per-dataset tab navigation + shared data fetch
-        ├── components/              Logo, Footer, StatCard, ScoreGauge
-        └── pages/                   Home, Login, Register, Demo, Dashboard, Upload,
-                                       Profile, AdminDashboard, DatasetOverview, DataHealth,
-                                       ColumnAnalysis, DataExplorer, Statistics,
-                                       CorrelationAnalysis, VisualizationStudio,
-                                       AIDataAnalyst, Reports
+```text
+http://localhost:5173
 ```
 
 ---
 
-## Testing notes
+# ☁️ Production Deployment
 
-This was built and verified in a sandboxed environment without outbound
-network access, so `npm install` / a live MySQL instance / a live Gemini
-API call could not be exercised directly. What *was* verified directly:
+DataLens AI is deployed using a separate frontend and backend architecture.
 
-- The full profiling pipeline (type detection, stats, health/quality/usability
-  scoring, correlations) against a synthetic messy dataset — confirmed it
-  correctly catches invalid dates, inconsistent casing, whitespace, outliers,
-  and duplicates, and produces sensible scores and prioritized recommendations
-- The demo dataset generator + full pipeline + chart data generation, end-to-end
-- PDF, Excel, and CSV report generation — all three produce valid, non-empty
-  downloadable files with real content
-- Every backend Python file compiles cleanly (`py_compile`)
-- Every frontend JS/JSX file (29 files) passes an esbuild syntax check
+### Frontend
 
-Run `npm install` and point `DATABASE_URL` at a real MySQL instance to
-run it end-to-end yourself.
+**Netlify**
+
+```text
+https://datalens-ai12.netlify.app/
+```
+
+### Backend
+
+**Render**
+
+```text
+https://datalens-ai-backend-fu9i.onrender.com
+```
+
+### Database
+
+**TiDB Cloud**
+
+The production backend connects to the cloud database through SQLAlchemy and PyMySQL.
 
 ---
 
-Developed by **Er. Navin Kumar**
-[LinkedIn](https://www.linkedin.com/in/navinhere) · [GitHub](https://github.com/mrnavinkr)
+# 🔄 Production API Configuration
+
+For the deployed frontend, the API URL points to the Render backend:
+
+```env
+VITE_API_URL=https://datalens-ai-backend-fu9i.onrender.com
+```
+
+The backend uses the deployed frontend URL for CORS configuration:
+
+```env
+FRONTEND_URL=https://datalens-ai12.netlify.app
+```
+
+---
+
+# 🔒 Security
+
+The project follows basic application security practices:
+
+* 🔐 JWT authentication
+* 🔑 Password hashing
+* 🛡️ Protected API routes
+* 🌐 CORS configuration
+* 🔒 Environment-based secrets
+* 🚫 Sensitive credentials excluded from GitHub
+* 📦 Upload size restrictions
+
+---
+
+# 🧠 AI Integration
+
+DataLens AI uses **Google Gemini** to provide AI-assisted analysis.
+
+The AI layer can be used to transform dataset information into easier-to-understand insights and analytical responses.
+
+The API key is stored securely through environment variables instead of being hard-coded into the application.
+
+---
+
+# 🔌 API
+
+The backend exposes REST API endpoints for application functionality such as:
+
+```text
+/api/auth/register
+/api/auth/login
+```
+
+Additional API functionality is available through FastAPI's interactive documentation.
+
+### Local API Documentation
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+### Production API
+
+```text
+https://datalens-ai-backend-fu9i.onrender.com
+```
+
+---
+
+# 🧪 Development Workflow
+
+The project was developed and tested locally before deployment.
+
+```text
+Development
+     │
+     ▼
+React Frontend
+     │
+     ▼
+FastAPI Backend
+     │
+     ▼
+Database Connection
+     │
+     ▼
+API Testing
+     │
+     ▼
+GitHub
+     │
+     ├──────────────► Netlify
+     │                  │
+     │                  ▼
+     │             Live Frontend
+     │
+     └──────────────► Render
+                        │
+                        ▼
+                   Live Backend
+```
+
+---
+
+# 📌 Important Configuration
+
+For local development:
+
+```env
+FRONTEND_URL=http://localhost:5173
+```
+
+For production:
+
+```env
+FRONTEND_URL=https://datalens-ai12.netlify.app
+```
+
+Frontend production API:
+
+```env
+VITE_API_URL=https://datalens-ai-backend-fu9i.onrender.com
+```
+
+---
+
+# 💡 What I Learned
+
+While building DataLens AI, I worked with:
+
+* Full-stack application development
+* React frontend development
+* FastAPI backend development
+* REST API integration
+* JWT authentication
+* SQLAlchemy ORM
+* MySQL/TiDB Cloud database integration
+* Environment variable management
+* CORS configuration
+* AI API integration
+* File upload workflows
+* Git & GitHub
+* Netlify deployment
+* Render deployment
+* Production debugging and troubleshooting
+
+---
+
+# 🎯 Project Goals
+
+The main goal of DataLens AI is to make dataset analysis more accessible by combining traditional data-processing workflows with AI-assisted insights.
+
+The project demonstrates how a modern full-stack application can connect:
+
+**Frontend + Backend + Database + AI + Cloud Deployment**
+
+into one complete data analytics platform.
+
+---
+
+# 🔗 Project Links
+
+### 🌐 Live Demo
+
+https://datalens-ai12.netlify.app/
+
+### 💻 GitHub Repository
+
+https://github.com/mrnavinkr/datalens-ai
+
+### 👨‍💻 LinkedIn
+
+**Navin Raj**
+https://www.linkedin.com/in/navinhere/
+
+---
+
+# 👨‍💻 Developer
+
+### Navin Raj
+
+**B.Tech Computer Science & Engineering | Data Science**
+
+Interested in:
+
+* 📊 Data Analytics
+* 🤖 Data Science
+* 🐍 Python
+* 🗄️ SQL
+* 📈 Machine Learning
+* ⚛️ Full-Stack Development
+* ☁️ Cloud & AI Applications
+
+---
+
+## ⭐ Support
+
+If you find this project useful, consider giving the repository a ⭐ on GitHub.
+
+---
+
+### 📄 License
+
+This project is developed for educational, portfolio, and demonstration purposes.
